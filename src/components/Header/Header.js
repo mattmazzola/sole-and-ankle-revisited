@@ -1,14 +1,15 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from 'react'
+import styled from 'styled-components/macro'
 
-import { BREAKPOINTS, COLORS, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
+import { BREAKPOINTS, COLORS, WEIGHTS } from '../../constants'
+import Logo from '../Logo'
+import Icon from '../Icon'
+import SuperHeader from '../SuperHeader'
+import MobileMenu from '../MobileMenu'
+import UnstyledButton from '../UnstyledButton'
 
 const Header = () => {
-  const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+  const [showMobileMenu, setShowMobileMenu] = React.useState(false)
 
   // For our mobile hamburger menu, we'll want to use a button
   // with an onClick handler, something like this:
@@ -17,6 +18,11 @@ const Header = () => {
 
   return (
     <header>
+      <MobileMenu
+        isOpen={showMobileMenu}
+        onDismiss={() => setShowMobileMenu(false)}
+      />
+      
       <SuperHeader />
       <MainHeader>
         <Side>
@@ -33,18 +39,17 @@ const Header = () => {
         <Side />
         <Icons>
           <Icon id="shopping-bag" size={24} />
-          <Icon id="search" size={24}/>
-          <Icon id="menu" size={24}/>
+          <Icon id="search" size={24} />
+          <UnstyledButton onClick={() => setShowMobileMenu(x => !x)}>
+            <Icon id="menu" size={24} />
+          </UnstyledButton>
         </Icons>
       </MainHeader>
 
-      <MobileMenu
-        isOpen={showMobileMenu}
-        onDismiss={() => setShowMobileMenu(false)}
-      />
+
     </header>
-  );
-};
+  )
+}
 
 const MainHeader = styled.div`
   display: flex;
@@ -52,7 +57,7 @@ const MainHeader = styled.div`
   padding: 18px 32px;
   height: 72px;
   border-bottom: 1px solid ${COLORS.gray[300]};
-`;
+`
 
 const Icons = styled.div`
   display: flex;
@@ -74,11 +79,11 @@ const Nav = styled.nav`
   @media (max-width: ${BREAKPOINTS.tablet.px}px) {
     display: none;
   }
-`;
+`
 
 const Side = styled.div`
   flex: 1;
-`;
+`
 
 const NavLink = styled.a`
   font-size: 1.125rem;
@@ -90,6 +95,6 @@ const NavLink = styled.a`
   &:first-of-type {
     color: ${COLORS.secondary};
   }
-`;
+`
 
-export default Header;
+export default Header
